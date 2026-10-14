@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly</title>
+  <meta name="description" content="Transparent Indian ₹ pricing, ticket tiers, platform escrow fees, and comprehensive feature comparison for corporate events, retreats, and weddings.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/webp" href="assets/images/logo.webp">
+</head>
+<body>
+
+  <!-- Shared Header -->
+      <header class="site-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/logo.webp" alt="Stackly Logo" class="brand-logo-img">
+          <span>STACKLY</span>
+        </a>
+
+        <nav class="nav-menu" role="navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <span class="nav-divider">/</span>
+          <a href="venues.html" class="nav-link">Venues</a>
+          <span class="nav-divider">/</span>
+          <a href="services.html" class="nav-link">Services</a>
+          <span class="nav-divider">/</span>
+          <a href="enterprise.html" class="nav-link">Enterprise</a>
+          <span class="nav-divider">/</span>
+          <a href="pricing.html" class="nav-link active">Pricing</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="cart-trigger" aria-label="Open Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <div class="cart-badge">0</div>
+          </button>
+
+          <button class="nav-auth-btn auth-trigger">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Sign In</span>
+          </button>
+
+          <button class="mobile-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+    <!-- Mobile Drawer Navigation -->
+    <!-- Mobile Drawer Navigation -->
+  <div class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link"><span>Home</span> <span>→</span></a>
+    <a href="venues.html" class="mobile-nav-link"><span>Venues & Spaces</span> <span>→</span></a>
+    <a href="services.html" class="mobile-nav-link"><span>Services & Marketplace</span> <span>→</span></a>
+    <a href="enterprise.html" class="mobile-nav-link"><span>Enterprise Offsites</span> <span>→</span></a>
+    <a href="pricing.html" class="mobile-nav-link"><span>Pricing & Tickets</span> <span>→</span></a>
+    <div style="margin-top: 20px;">
+      <button class="btn-primary auth-trigger" style="width: 100%; justify-content: center;">
+        <span>Sign In to Stackly</span>
+      </button>
+    </div>
+  </div>
+
+<main>
+    <!-- ========================================================================
+         SECTION 1: Pricing Hero
+         ======================================================================== -->
+    <section class="hero-section" style="padding-bottom: 60px;">
+      <div class="container hero-content">
+        <div class="sub-title-pill mint">Transparent Indian ₹ Pricing</div>
+        <h1 class="hero-title-text" style="font-size: clamp(3rem, 7.5vw, 7rem); margin-bottom: 24px;">
+          TICKET BREAKDOWN & <span class="hero-title-highlight">PRODUCTION</span> TIERS
+        </h1>
+        <p class="lead-text" style="margin-bottom: 40px;">
+          Whether you need individual delegate passes for our Bengaluru summits or turnkey corporate retreat staging across Goa and Rajasthan, review our structured packages below.
+        </p>
+
+        <div style="display: flex; gap: 14px; align-items: center;">
+          <button class="calc-pill-opt selected" onclick="showToast('Showing Standard Event Packages')">Production Packages</button>
+          <button class="calc-pill-opt" onclick="showToast('Showing Individual Delegate Passes')">Delegate Passes</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: Signature Evendo Perforated Ticket Cards
+         ======================================================================== -->
+    <section class="section-block dark-surface">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-subtitle">Plan Your Attendance</span>
+          <h2 class="section-title">The Three Production Tiers</h2>
+        </div>
+
+        <div class="tickets-container" style="margin-top: 48px;">
+          <!-- Ticket 1 -->
+          <div class="ticket-card">
+            <div class="ticket-header">
+              <img src="assets/images/gallery-1.webp" alt="Startup & Social" loading="lazy" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 16px;">
+              <h3 class="ticket-tier-name">Startup & Social</h3>
+              <p class="ticket-desc">Single-day tech mixers, founder dinners & workshops.</p>
+              <div class="ticket-pricing-box">
+                <div class="ticket-price-currency">₹49,000</div>
+                <div class="ticket-price-unit">+ Verified venue at direct cost</div>
+              </div>
+            </div>
+
+            <div class="ticket-perforation">
+              <div class="perforation-line"></div>
+            </div>
+
+            <div class="ticket-features-list">
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Up to 150 Attendees</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Curated Space Shortlist</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Basic Sound & Wireless Mics</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>FSSAI Catering Coordination</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Standard Escrow Protection</span>
+              </div>
+            </div>
+
+            <div class="ticket-card-cta">
+              <button class="btn-secondary" onclick="addToCart({id: 'pkg-startup-tier', title: 'Startup & Social Package', type: 'Package Tier', city: 'Pan-India', price: 49000, quantity: 1, image: 'assets/images/service-av.webp'})">
+                <span>Book Tier</span>
+                <div class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ticket 2: Popular -->
+          <div class="ticket-card popular">
+            <div class="ticket-popular-badge">Recommended</div>
+            <div class="ticket-header">
+              <img src="assets/images/gallery-3.webp" alt="Enterprise Scale" loading="lazy" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 16px;">
+              <h3 class="ticket-tier-name">Enterprise Scale</h3>
+              <p class="ticket-desc">Annual conferences, leadership summits & hackathons.</p>
+              <div class="ticket-pricing-box">
+                <div class="ticket-price-currency">₹1,49,000</div>
+                <div class="ticket-price-unit">+ Staging & catering at wholesale cost</div>
+              </div>
+            </div>
+
+            <div class="ticket-perforation">
+              <div class="perforation-line"></div>
+            </div>
+
+            <div class="ticket-features-list">
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Up to 600 Attendees</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Dedicated On-Ground Event Director</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Concert P2.6 LED Video Wall</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>4K Multicam Broadcast & Stream</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Single Corporate GST Tax Invoice</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Executive Airport Concierge</span>
+              </div>
+            </div>
+
+            <div class="ticket-card-cta">
+              <button class="btn-primary" onclick="addToCart({id: 'pkg-enterprise-tier', title: 'Enterprise Scale Package', type: 'Package Tier', city: 'Pan-India', price: 149000, quantity: 1, image: 'assets/images/service-av.webp'})">
+                <span>Book Tier</span>
+                <div class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ticket 3 -->
+          <div class="ticket-card">
+            <div class="ticket-header">
+              <img src="assets/images/gallery-4.webp" alt="Destination Gala" loading="lazy" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 16px;">
+              <h3 class="ticket-tier-name">Destination Gala</h3>
+              <p class="ticket-desc">Udaipur palace weddings & multi-day Goa founder retreats.</p>
+              <div class="ticket-pricing-box">
+                <div class="ticket-price-currency">₹3,89,000</div>
+                <div class="ticket-price-unit">+ Turnkey royal banquet & stay at cost</div>
+              </div>
+            </div>
+
+            <div class="ticket-perforation">
+              <div class="perforation-line"></div>
+            </div>
+
+            <div class="ticket-features-list">
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>800+ Attendees Capacity</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>72-Hour Full On-Site Ops Team</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Headline Celebrity Band Booking</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Cinematic Drone & Same-Day Reels</span>
+              </div>
+              <div class="ticket-feature-item">
+                <div class="feature-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <span>Full Legal Clearances & Permissions</span>
+              </div>
+            </div>
+
+            <div class="ticket-card-cta">
+              <button class="btn-secondary" onclick="addToCart({id: 'pkg-gala-tier', title: 'Destination Gala Package', type: 'Package Tier', city: 'Pan-India', price: 389000, quantity: 1, image: 'assets/images/service-av.webp'})">
+                <span>Book Tier</span>
+                <div class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: Granular Fee Transparency & Escrow Breakdown
+         ======================================================================== -->
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">No Hidden Costs</span>
+          <h2 class="section-title">Fee Transparency Breakdown</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px;" class="feature-cards-row">
+          <div class="feature-pill-card">
+            <h4>0% Hidden Markups</h4>
+            <p>You pay the venue and caterer's direct wholesale rate card. Stackly earns solely from our transparent platform service fee.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>5% Escrow Protection Fee</h4>
+            <p>Covers RBI-compliant milestone escrow account maintenance, contract legal review, and mandatory pre-event site audits.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>18% Standard GST</h4>
+            <p>Every rupee invoiced carries compliant HSN/SAC codes, allowing your corporate finance team to claim 100% input tax credits.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>Refundable Security Deposit</h4>
+            <p>Standard ₹50,000 – ₹1,00,000 venue deposit held in escrow and returned within 48 hours post-event following final venue sign-off.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: Step-by-Step How Booking Works
+         ======================================================================== -->
+    <section class="section-block tint-bg">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-subtitle">Frictionless Experience</span>
+          <h2 class="section-title">How Booking Works With Stackly</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 48px;" class="feature-cards-row">
+          <div class="feature-pill-card">
+            <div style="font-family: var(--heading-font); font-size: 2.5rem; color: var(--color-light); margin-bottom: 8px;">01</div>
+            <h4>Discover & Hold Dates</h4>
+            <p>Browse verified venues across India, inspect high-res photos and acoustic specs, and place a 48-hour complimentary date hold.</p>
+          </div>
+          <div class="feature-pill-card">
+            <div style="font-family: var(--heading-font); font-size: 2.5rem; color: var(--accent); margin-bottom: 8px;">02</div>
+            <h4>Customize Menus & AV</h4>
+            <p>Add regional banquet menus, LED stages, and entertainment with instant live calculation of per-plate and daily rates.</p>
+          </div>
+          <div class="feature-pill-card">
+            <div style="font-family: var(--heading-font); font-size: 2.5rem; color: var(--pink-color); margin-bottom: 8px;">03</div>
+            <h4>Milestone Escrow Deposit</h4>
+            <p>Sign one Master Services Agreement and deposit funds into our secure escrow vault. Vendors prepare according to strict SLAs.</p>
+          </div>
+          <div class="feature-pill-card">
+            <div style="font-family: var(--heading-font); font-size: 2.5rem; color: #fff; margin-bottom: 8px;">04</div>
+            <h4>Flawless Day-Of Execution</h4>
+            <p>Your dedicated Stackly Event Director runs call-sheets, VIP guest arrivals, audio sound checks, and post-event GST sign-offs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: Comprehensive Feature Comparison Matrix
+         ======================================================================== -->
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-subtitle">Feature Breakdown</span>
+          <h2 class="section-title">Compare All Package Inclusions</h2>
+          <p class="lead-text" style="max-width: 650px; margin: 0 auto;">
+            Detailed side-by-side comparison of deliverables, staging infrastructure, and on-ground management across our three standard production tiers.
+          </p>
+        </div>
+
+        <div class="dash-table-container">
+          <div class="dash-table-wrapper">
+            <table class="dash-data-table">
+              <thead>
+                <tr>
+                  <th>Feature / Deliverable</th>
+                  <th>Startup & Social</th>
+                  <th class="table-col-highlight">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span>Enterprise Scale</span>
+                      <span class="table-pill-badge peach">Recommended</span>
+                    </div>
+                  </th>
+                  <th>Destination Gala</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Max Guest Headcount</td>
+                  <td><span class="table-value">150 Guests</span></td>
+                  <td class="table-col-highlight"><span class="table-value accent">Up to 600 Guests</span></td>
+                  <td><span class="table-value">800+ Unlimited</span></td>
+                </tr>
+                <tr>
+                  <td>Dedicated On-Ground Event Director</td>
+                  <td><span class="table-dim">Remote Lead</span></td>
+                  <td class="table-col-highlight"><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Stationed On-Site</span></td>
+                  <td><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Full 72-Hr Team</span></td>
+                </tr>
+                <tr>
+                  <td>LED Video Wall Specifications</td>
+                  <td><span class="table-dim">Projector & Screen</span></td>
+                  <td class="table-col-highlight"><span class="table-value">30ft x 12ft P2.6 LED Wall</span></td>
+                  <td><span class="table-value">Custom Curved Arena Rig</span></td>
+                </tr>
+                <tr>
+                  <td>Catering Food Tasting Session</td>
+                  <td><span class="table-dim">Paid Extra</span></td>
+                  <td class="table-col-highlight"><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Included (4 Pax)</span></td>
+                  <td><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Included (8 Pax)</span></td>
+                </tr>
+                <tr>
+                  <td>Cinematic Media & Teaser Film</td>
+                  <td><span class="table-dim">Photos Only</span></td>
+                  <td class="table-col-highlight"><span class="table-value">4K Multicam + Stream</span></td>
+                  <td><span class="table-value">4K Drone + 4-Hr Reel</span></td>
+                </tr>
+                <tr>
+                  <td>GST & Input Tax Reconciliation</td>
+                  <td><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Included</span></td>
+                  <td class="table-col-highlight"><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Included</span></td>
+                  <td><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Included</span></td>
+                </tr>
+                <tr>
+                  <td>Police & Sound Permissions</td>
+                  <td><span class="table-dim">Client Self-Managed</span></td>
+                  <td class="table-col-highlight"><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Stackly Managed</span></td>
+                  <td><span class="table-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="svg-icon check"><polyline points="20 6 9 17 4 12"></polyline></svg> Stackly Managed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 6: Interactive Cost Estimator Quick Widget
+         ======================================================================== -->
+    <section class="section-block dark-surface">
+      <div class="container">
+        <div class="calculator-card" style="max-width: 900px; margin: 0 auto;">
+          <div class="calc-grid">
+            <div>
+              <span class="sub-title-pill lilac">Live Estimator</span>
+              <h3 style="font-family: var(--heading-font); font-size: 2rem; color: #fff; margin-bottom: 12px;">Quick Budget Check</h3>
+              <p style="color: var(--body-color-dark); margin-bottom: 24px;">Need a fast budget projection for your upcoming management committee or family meeting?</p>
+              <div class="calc-control-group">
+                <div class="calc-label">
+                  <span>Guest Headcount</span>
+                  <span class="val" id="calc-guests-val">200 Guests</span>
+                </div>
+                <input type="range" id="calc-guests" class="calc-range-slider" min="50" max="800" step="25" value="200">
+              </div>
+            </div>
+            <div class="calc-summary-panel">
+              <div class="calc-summary-title">Total Turnkey Budget (₹)</div>
+              <div class="calc-total-rupees" id="calc-total-inr">₹6,72,600</div>
+              <p style="font-size: 0.8rem; color: var(--body-color-dark); margin-bottom: 16px;">Includes verified venue rental, regional dining, concert AV, and 18% GST.</p>
+              <button id="calc-book-btn" class="btn-primary" style="width: 100%; justify-content: center;">
+                <span>Add Estimate to Cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: Cancellation & Escrow Terms Accordion
+         ======================================================================== -->
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-subtitle">Clear Guarantees</span>
+          <h2 class="section-title">Cancellation & Refund Terms</h2>
+        </div>
+
+        <div style="max-width: 800px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 16px;">
+          <div class="feature-pill-card">
+            <h4>What is the cancellation timeline and refund schedule?</h4>
+            <p>Cancellations made 45+ days before the event receive a 90% refund of the deposit (10% platform processing fee). Cancellations within 15–44 days receive a 50% refund. Cancellations within 14 days forfeit the deposit, but credit can be transferred to a future date.</p>
+          </div>
+          <div class="feature-pill-card">
+            <h4>What happens in the event of severe weather or force majeure?</h4>
+            <p>For open-air clifftop lawns in Goa or desert camps in Rajasthan, Stackly includes mandatory weather insurance. If municipal authorities issue a red weather alert, our contracts allow free rescheduling within 90 days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 8: Corporate Sales Call Banner
+         ======================================================================== -->
+    <section class="section-block" style="padding-bottom: 0;">
+      <div class="container">
+        <div class="say-hello-banner">
+          <div>
+            <div class="say-hello-title">Have Questions About Pricing?</div>
+            <p style="color: var(--body-color-dark); margin-top: 6px; font-size: 1.05rem;">
+              Connect with our procurement and contracting team in Bengaluru.
+            </p>
+          </div>
+          <a href="mailto:finance@stackly.in" class="btn-primary">
+            <span>Email Finance Desk</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+    <!-- ========================================================================
+       Shared Footer (Evendo Design System with Indian HQ Addresses)
+       ======================================================================== -->
+    <!-- ========================================================================
+       Shared Footer (Evendo Design System with Indian HQ Addresses)
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-widgets">
+        <div class="footer-widget">
+          <div class="brand-logo" style="margin-bottom: 16px;">
+            <img src="assets/images/logo.webp" alt="Stackly Logo" class="brand-logo-img">
+            <span>STACKLY</span>
+          </div>
+          <p class="footer-text">
+            Stackly is India's leading event booking and turnkey production platform, connecting premier enterprises and families with curated venues, gourmet catering, and concert production.
+          </p>
+          <div class="sub-title-pill mint" style="margin-bottom: 0;">FSSAI & GST Compliant</div>
+        </div>
+
+        <div class="footer-widget">
+          <h3 class="footer-widget-title">Headquarters</h3>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span><strong>Bengaluru:</strong> 100 Feet Rd, Indiranagar, Bengaluru 560038</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span><strong>Mumbai:</strong> One BKC, Bandra Kurla Complex, Mumbai 400051</span>
+          </div>
+        </div>
+
+        <div class="footer-widget">
+          <h3 class="footer-widget-title">Direct Contact</h3>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:events@stackly.in" style="color: var(--color-light);">events@stackly.in</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="404.html">+91 (080) 4920 4000</a>
+          </div>
+          <div class="footer-social-links" style="margin-top: 18px;">
+            <a href="404.html" class="social-circle-link" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.46 1.46 0 1 0 0-2.92 1.46 1.46 0 0 0 0 2.92m1.39 9.74v-8.37H5.07v8.37h2.78z"></path></svg></a>
+            <a href="404.html" class="social-circle-link" title="Twitter / X" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+            <a href="404.html" class="social-circle-link" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <a href="404.html" class="social-circle-link" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            <a href="404.html" class="social-circle-link" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="var(--color-dark)"></polygon></svg></a>
+          </div>
+        </div>
+
+        <div class="footer-widget">
+          <h3 class="footer-widget-title">Event Bulletins</h3>
+          <p class="footer-text">
+            Subscribe for exclusive venue drop alerts, seasonal hotel rates, and corporate retreat itineraries.
+          </p>
+          <form class="newsletter-box">
+            <input type="email" class="newsletter-input" placeholder="Enter corporate email..." required>
+            <button type="submit" class="newsletter-submit" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 Stackly Platform Technologies Pvt. Ltd. All rights reserved.</div>
+        <div class="footer-legal-links">
+          <a href="pricing.html">Terms & Escrow</a>
+          <a href="pricing.html">GST Billing Policy</a>
+          <a href="404.html">Client Portal</a>
+          <a href="404.html">Admin Portal</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-in Cart Drawer (Evendo Behavior) -->
+  <div class="cart-overlay"></div>
+  <div class="cart-drawer">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title">YOUR CART</div>
+      <button class="cart-close-btn" aria-label="Close Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-drawer-body">
+      <!-- Injected by main.js -->
+    </div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <span class="cart-subtotal-val">₹0</span>
+      </div>
+      <div class="cart-summary-line">
+        <span>GST (18% Input Credit)</span>
+        <span class="cart-gst-val">₹0</span>
+      </div>
+      <div class="cart-total-line">
+        <span>Total Payable</span>
+        <span class="total-val">₹0</span>
+      </div>
+      <button class="btn-primary cart-checkout-btn" style="width: 100%; justify-content: center; margin-top: 18px;">
+        <span>Proceed to Escrow Checkout</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Shared Auth Modal (Client & Admin Login) -->
+  <div class="auth-modal-overlay">
+    <div class="auth-modal">
+      <button class="auth-close-btn" aria-label="Close Modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div style="text-align: center; margin-bottom: 24px;">
+        <img src="assets/images/logo.webp" alt="Stackly Logo" class="brand-logo-img" style="width: 44px; height: 48px; margin: 0 auto 12px; display: block;">
+        <h3 style="font-family: var(--heading-font); font-size: 2rem; color: #fff;">STACKLY ACCESS</h3>
+        <p style="font-size: 0.85rem; color: var(--body-color-dark);">Sign in to your client bookings or admin management console.</p>
+      </div>
+
+      <div class="auth-tabs">
+        <div class="auth-tab-btn active" data-role="client">Client Login</div>
+        <div class="auth-tab-btn" data-role="admin">Admin Console</div>
+      </div>
+
+      <form class="auth-login-form">
+        <input type="hidden" id="auth-role" value="client">
+        <div class="auth-form-group">
+          <label class="auth-label" for="auth-email">Corporate Email</label>
+          <input type="email" id="auth-email" class="auth-input" placeholder="Enter your email address (e.g. rohit.sharma@gmail.com)" required autocomplete="email">
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label" for="auth-pass">Password</label>
+          <input type="password" id="auth-pass" class="auth-input" placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <span>Enter Dashboard</span>
+          <div class="arrow-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top-btn" aria-label="Back to Top">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+
+
+
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/booking.js"></script>
+</body>
+</html>

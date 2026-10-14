@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly</title>
+  <meta name="description" content="Platform administrator operations console for revenue analytics, live booking approval queue, and venue inventory controls.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="icon" type="image/webp" href="assets/images/logo.webp">
+</head>
+<body class="dash-page">
+
+  <!-- Admin Top Bar -->
+  <header class="dash-topbar" style="border-bottom-color: rgba(160, 255, 194, 0.2);">
+    <div class="container">
+      <div class="dash-topbar-inner">
+        <div class="dash-brand-wrap">
+          <a href="index.html" class="brand-logo" style="font-size: 1.6rem;">
+            <img src="assets/images/logo.webp" alt="Stackly Logo" class="brand-logo-img" style="width: 32px; height: 36px;">
+            <span>STACKLY</span>
+          </a>
+          <span class="dash-role-badge admin">Super Admin Console</span>
+        </div>
+
+        <div class="dash-user-controls">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--accent); margin-right: 12px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block;"></span>
+            <span>Escrow Vault Active</span>
+          </div>
+          <div class="dash-user-info">
+            <span class="dash-user-name" id="admin-user-name">Operations Admin</span>
+            <span class="dash-user-email" id="admin-user-email">admin@stackly.in · Superuser</span>
+          </div>
+          <a href="index.html" class="btn-dash-logout" onclick="StacklyStore.saveUser({isLoggedIn:false, role:'admin', email:'', name:''}); StacklyStore.saveCart([]); showToast('Signed out of Admin Console');">
+            Sign Out
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash-content-area">
+    <div class="container">
+      <!-- Dashboard Header -->
+      <div class="dash-header-section">
+        <div>
+          <h1 class="dash-title">OPERATIONS COMMAND: <span id="admin-greeting-name">OPERATIONS ADMIN</span></h1>
+          <p style="color: var(--body-color-dark); margin-top: 4px;">Live overview of pan-India event bookings, revenue pipelines, and venue inventory.</p>
+        </div>
+
+        <div class="dash-actions-group">
+          <button id="btn-open-new-venue" class="btn-primary" style="background: var(--accent); border-color: var(--accent);">
+            <span>+ Add Verified Space</span>
+            <div class="arrow-circle" style="background: var(--color-dark);"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" style="stroke: var(--accent);"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+          </button>
+          <button class="btn-secondary" onclick="renderAdminMetrics(); renderAdminBookingsTable(); showToast('Synchronized with LocalStorage');">
+            <span>Refresh State</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="dash-metrics-grid">
+        <div class="metric-card">
+          <div class="metric-top-row">
+            <span class="metric-card-label">Total Platform Revenue</span>
+            <div class="metric-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+          </div>
+          <div class="metric-value-num accent" id="admin-kpi-revenue">₹34,45,000</div>
+          <div class="metric-trend">↑ +24.8% vs last month</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top-row">
+            <span class="metric-card-label">Active Bookings Queue</span>
+            <div class="metric-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+            </div>
+          </div>
+          <div class="metric-value-num peach" id="admin-kpi-bookings">4</div>
+          <div class="metric-trend">Requiring Ops Review</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top-row">
+            <span class="metric-card-label">Verified Listed Spaces</span>
+            <div class="metric-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+          </div>
+          <div class="metric-value-num" id="admin-kpi-venues">8</div>
+          <div class="metric-trend">Across 8 Indian Cities</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-top-row">
+            <span class="metric-card-label">Avg. Deal Size</span>
+            <div class="metric-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+          </div>
+          <div class="metric-value-num accent" id="admin-kpi-avg">₹8,61,250</div>
+          <div class="metric-trend">High-Yield Corporate Mix</div>
+        </div>
+      </div>
+
+      <!-- Pure Vanilla JS Interactive Charts -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <span class="sub-title-pill peach" style="margin-bottom: 4px;">Revenue Velocity</span>
+              <h3 class="chart-card-title">Monthly Platform Volume (₹ Lakhs)</h3>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--accent); font-weight: 700;">FY 2026-27</span>
+          </div>
+          <div class="chart-canvas-box">
+            <canvas id="chart-revenue-trend"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <span class="sub-title-pill lilac" style="margin-bottom: 4px;">Market Share</span>
+              <h3 class="chart-card-title">Event Types Breakdown</h3>
+            </div>
+          </div>
+          <div class="chart-canvas-box">
+            <canvas id="chart-event-types"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- City Bar Chart -->
+      <div class="chart-card" style="margin-bottom: 40px;">
+        <div class="chart-card-header">
+          <div>
+            <span class="sub-title-pill mint" style="margin-bottom: 4px;">Geographic Spread</span>
+            <h3 class="chart-card-title">Booking Volume By Major Indian Hubs</h3>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--body-color-dark);">Total Confirmed Runs</span>
+        </div>
+        <div class="chart-canvas-box" style="height: 220px;">
+          <canvas id="chart-city-bars"></canvas>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs for Admin -->
+      <div class="dash-tabs-nav">
+        <div class="dash-tab-link admin-tab-link active" data-tab="tab-admin-bookings">Live Booking Approval Queue</div>
+        <div class="dash-tab-link admin-tab-link" data-tab="tab-admin-venues">Venue Inventory Roster</div>
+      </div>
+
+      <!-- Tab 1: Bookings Management Table -->
+      <div class="dash-tab-pane admin-tab-pane active" id="tab-admin-bookings">
+        <div class="dash-table-container">
+          <div class="dash-table-header">
+            <h3 class="dash-table-title">Booking Management & Approval Actions</h3>
+            <input type="text" id="admin-booking-search" class="table-filter-input" placeholder="Search by ID, client, or city...">
+          </div>
+          <div class="dash-table-wrapper">
+            <table class="dash-data-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Event & Space</th>
+                  <th>Client Profile</th>
+                  <th>Execution Date</th>
+                  <th>Status</th>
+                  <th>Total ₹</th>
+                  <th>Administrative Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-tbody">
+                <!-- Injected dynamically by admin-dash.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Venues Inventory Table -->
+      <div class="dash-tab-pane admin-tab-pane" id="tab-admin-venues">
+        <div class="dash-table-container">
+          <div class="dash-table-header">
+            <h3 class="dash-table-title">Listed Verified Spaces (Pan-India)</h3>
+          </div>
+          <div class="dash-table-wrapper">
+            <table class="dash-data-table">
+              <thead>
+                <tr>
+                  <th>Media</th>
+                  <th>Venue Name</th>
+                  <th>City / Area</th>
+                  <th>Capacity</th>
+                  <th>Daily Rental</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="admin-venues-tbody">
+                <!-- Injected dynamically by admin-dash.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add New Venue Modal -->
+  <div class="auth-modal-overlay" id="new-venue-overlay">
+    <div class="auth-modal" style="max-width: 640px;">
+      <button class="auth-close-btn" id="new-venue-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div style="margin-bottom: 24px;">
+        <span class="sub-title-pill mint">Platform Inventory</span>
+        <h3 style="font-family: var(--heading-font); font-size: 2rem; color: #fff; margin-top: 6px;">ADD VERIFIED SPACE</h3>
+        <p style="font-size: 0.85rem; color: var(--body-color-dark);">Register a new audited luxury space into Stackly's pan-India inventory.</p>
+      </div>
+
+      <form id="new-venue-form">
+        <div class="modal-form-grid">
+          <div class="full-width">
+            <label class="auth-label">Venue Display Name</label>
+            <input type="text" id="venue-name-input" class="auth-input" placeholder="e.g. Royal Mirage Glasshouse" required>
+          </div>
+          <div>
+            <label class="auth-label">City</label>
+            <select id="venue-city-input" class="auth-input" required>
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Delhi-NCR">Delhi-NCR</option>
+              <option value="Goa">Goa</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Udaipur">Udaipur</option>
+            </select>
+          </div>
+          <div>
+            <label class="auth-label">Neighborhood / Area</label>
+            <input type="text" id="venue-area-input" class="auth-input" placeholder="e.g. Whitefield or BKC" required>
+          </div>
+          <div>
+            <label class="auth-label">Maximum Guest Capacity</label>
+            <input type="number" id="venue-cap-input" class="auth-input" placeholder="e.g. 500" required>
+          </div>
+          <div>
+            <label class="auth-label">Daily Base Rental (₹)</label>
+            <input type="number" id="venue-price-input" class="auth-input" placeholder="e.g. 250000" required>
+          </div>
+          <div class="full-width">
+            <label class="auth-label">Architectural Archetype</label>
+            <select id="venue-arch-input" class="auth-input" required>
+              <option value="Glasshouse">Glasshouse & Atrium</option>
+              <option value="Palace">Royal Heritage Palace</option>
+              <option value="Beachfront">Beachfront Villa & Lawn</option>
+              <option value="Banquet">Ballroom & Convention</option>
+              <option value="Auditorium">Tech Auditorium</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 24px; background: var(--accent); border-color: var(--accent);">
+          <span>Publish Space to Platform</span>
+          <div class="arrow-circle" style="background: var(--color-dark);"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" style="stroke: var(--accent);"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Footer -->
+  <footer class="site-footer" style="margin-top: 80px;">
+    <div class="container">
+      <div class="footer-bottom-bar" style="border-top: none; padding-top: 0;">
+        <div>© 2026 Stackly Platform Technologies Pvt. Ltd. · Admin Operations</div>
+        <div class="footer-social-links" style="display: flex; gap: 12px; align-items: center;">
+          <a href="404.html" class="social-circle-link" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </a>
+          <a href="404.html" class="social-circle-link" aria-label="Twitter / X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="404.html" class="social-circle-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="404.html" class="social-circle-link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+          <a href="404.html" class="social-circle-link" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared Toast Container -->
+  <div class="toast-container"></div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/admin-dash.js"></script>
+</body>
+</html>
