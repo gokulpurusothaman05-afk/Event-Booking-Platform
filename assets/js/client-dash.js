@@ -49,6 +49,49 @@ function renderClientMetrics() {
     });
   }
 
+  const reqForm = document.querySelector("#new-booking-form");
+  if (reqForm && !reqForm.dataset.bound) {
+    reqForm.dataset.bound = "true";
+    reqForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const eventName = (document.querySelector("#req-event-name")?.value || "Corporate Event").trim();
+      const city = document.querySelector("#req-city")?.value || "Bengaluru";
+      const date = document.querySelector("#req-date")?.value || new Date().toISOString().split("T")[0];
+      const guests = parseInt(document.querySelector("#req-guests")?.value, 10) || 100;
+      const pkg = document.querySelector("#req-package")?.value || "Enterprise Scale";
+
+      const venues = StacklyStore.getVenues();
+      const matchedVenue = venues.find(v => v.city.toLowerCase() === city.toLowerCase()) || venues[0];
+
+      const newBooking = {
+        id: `STK-${Date.now().toString().slice(-4)}-${city.slice(0, 3).toUpperCase()}`,
+        eventName: eventName,
+        venueId: matchedVenue ? matchedVenue.id : "v-blr-01",
+        venueName: matchedVenue ? `${matchedVenue.name}, ${matchedVenue.city}` : `Executive Hall, ${city}`,
+        date: date,
+        guests: guests,
+        package: pkg,
+        city: city,
+        totalPrice: ((matchedVenue && matchedVenue.pricePerDay) ? matchedVenue.pricePerDay : 200000) + (guests * 1450),
+        status: "Pending",
+        clientEmail: user && user.email ? user.email : "client@stackly.in",
+        clientName: user && user.name ? user.name : "Executive Member",
+        createdAt: new Date().toISOString().split("T")[0],
+        image: matchedVenue ? matchedVenue.image : "assets/images/venue-indiranagar.webp"
+      };
+
+      const currentBookings = StacklyStore.getBookings();
+      currentBookings.unshift(newBooking);
+      StacklyStore.saveBookings(currentBookings);
+
+      showToast("Event request submitted successfully!", "success");
+      if (reqOverlay) reqOverlay.classList.remove("open");
+      reqForm.reset();
+      renderClientMetrics();
+      renderClientBookings();
+    });
+  }
+
   let totalSpent = 0;
   let activeCount = 0;
   let pendingCount = 0;
@@ -97,8 +140,9 @@ function renderClientBookings(filterStatus = "all") {
     else if (booking.status === "In Review") statusClass = "review";
     else if (booking.status === "Rejected") statusClass = "rejected";
 
+    const bookingImg = booking.image || 'assets/images/venue-indiranagar.webp';
     card.innerHTML = `
-      <img src="${booking.image || 'assets/images/venue-indiranagar.webp'}" alt="${booking.eventName}" class="booking-thumb">
+      <img src="${bookingImg}" alt="${booking.eventName || 'Event Booking'}" class="booking-thumb" onerror="this.onerror=null;this.src='assets/images/venue-indiranagar.webp';">
       <div class="booking-details-box">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
           <span class="status-pill ${statusClass}">${booking.status}</span>
@@ -187,17 +231,24 @@ function renderClientWishlist() {
   saved.forEach(v => {
     const card = document.createElement("div");
     card.className = "venue-card";
+    const imgUrl = v.image || "assets/images/venue-indiranagar.webp";
+    const venueName = v.name || "Curated Luxury Space";
+    const venueTag = v.tag || v.category || v.type || "Tech Luxe · Glass Atrium";
+    const venuePrice = Number(v.pricePerDay || v.price) || 185000;
+    const venueCity = v.city || "Bengaluru";
+    const safeTitle = venueName.replace(/'/g, "\\'");
+
     card.innerHTML = `
       <div class="venue-card-media">
-        <img src="${v.image}" alt="${v.name}">
-        <div class="venue-city-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> ${v.city}</div>
+        <img src="${imgUrl}" alt="${venueName}" onerror="this.onerror=null;this.src='assets/images/venue-indiranagar.webp';">
+        <div class="venue-city-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="svg-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> ${venueCity}</div>
       </div>
       <div class="venue-card-body">
-        <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 4px;">${v.name}</h4>
-        <p style="font-size: 0.85rem; color: var(--color-light); margin-bottom: 12px;">${v.tag}</p>
+        <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 4px;">${venueName}</h4>
+        <p style="font-size: 0.85rem; color: var(--color-light); margin-bottom: 12px;">${venueTag}</p>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
-          <div style="font-family: var(--heading-font); font-size: 1.4rem; color: var(--accent);">${formatINR(v.pricePerDay)}</div>
-          <button class="btn-primary" onclick="addToCart({id: '${v.id}', title: '${v.name}', type: 'Venue Booking', city: '${v.city}', price: ${v.pricePerDay}, quantity: 1, image: '${v.image}'})">
+          <div style="font-family: var(--heading-font); font-size: 1.4rem; color: var(--accent);">${formatINR(venuePrice)}</div>
+          <button class="btn-primary" onclick="addToCart({id: '${v.id}', title: '${safeTitle}', type: 'Venue Booking', city: '${venueCity}', price: ${venuePrice}, quantity: 1, image: '${imgUrl}'})">
             <span>Book Space</span>
           </button>
         </div>

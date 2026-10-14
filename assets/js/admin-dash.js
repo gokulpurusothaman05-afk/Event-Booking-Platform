@@ -51,6 +51,56 @@ function renderAdminMetrics() {
     });
   }
 
+  const newVenueForm = document.querySelector("#new-venue-form");
+  if (newVenueForm && !newVenueForm.dataset.bound) {
+    newVenueForm.dataset.bound = "true";
+    newVenueForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = (document.querySelector("#venue-name-input")?.value || "Curated Space").trim();
+      const city = document.querySelector("#venue-city-input")?.value || "Bengaluru";
+      const area = (document.querySelector("#venue-area-input")?.value || "Central Hub").trim();
+      const cap = parseInt(document.querySelector("#venue-cap-input")?.value, 10) || 500;
+      const price = parseInt(document.querySelector("#venue-price-input")?.value, 10) || 250000;
+      const arch = document.querySelector("#venue-arch-input")?.value || "Glasshouse";
+
+      const cityImageMap = {
+        "Bengaluru": "assets/images/venue-indiranagar.webp",
+        "Mumbai": "assets/images/venue-mumbai.webp",
+        "Delhi-NCR": "assets/images/venue-gurugram.webp",
+        "Goa": "assets/images/venue-goa.webp",
+        "Jaipur": "assets/images/venue-jaipur.webp",
+        "Udaipur": "assets/images/venue-udaipur.webp",
+        "Hyderabad": "assets/images/venue-hyderabad.webp",
+        "Chennai": "assets/images/venue-chennai.webp"
+      };
+
+      const newVenue = {
+        id: `v-custom-${Date.now().toString().slice(-4)}`,
+        name: name,
+        city: city,
+        area: area,
+        tag: `${arch} · Verified Space`,
+        capacity: cap,
+        pricePerDay: price,
+        image: cityImageMap[city] || "assets/images/venue-indiranagar.webp",
+        type: arch,
+        rating: 5.0,
+        reviewsCount: 1,
+        features: ["Acoustic Treatment", "High-speed Fiber", "Valet Parking"]
+      };
+
+      const currentVenues = StacklyStore.getVenues();
+      currentVenues.push(newVenue);
+      StacklyStore.saveVenues(currentVenues);
+
+      showToast(`Venue "${name}" added to inventory!`, "success");
+      if (venueOverlay) venueOverlay.classList.remove("open");
+      newVenueForm.reset();
+      renderAdminMetrics();
+      renderAdminVenuesTable();
+    });
+  }
+
   let totalRevenue = 0;
   let confirmedCount = 0;
   let pendingCount = 0;
@@ -414,13 +464,15 @@ function renderAdminVenuesTable() {
 
   venues.forEach(v => {
     const tr = document.createElement("tr");
+    const imgUrl = v.image || "assets/images/venue-indiranagar.webp";
+    const priceVal = Number(v.pricePerDay || v.price) || 185000;
     tr.innerHTML = `
-      <td><img src="${v.image}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;"></td>
-      <td style="font-weight: 700; color: #fff;">${v.name}</td>
-      <td>${v.city} (${v.area})</td>
-      <td>${v.capacity} pax</td>
-      <td style="font-family: var(--heading-font); color: var(--color-light);">${formatINR(v.pricePerDay)}/d</td>
-      <td><span style="color: var(--accent); font-weight: 700;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" class="svg-icon star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${v.rating}</span></td>
+      <td><img src="${imgUrl}" alt="${v.name || 'Venue Space'}" onerror="this.onerror=null;this.src='assets/images/venue-indiranagar.webp';" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;"></td>
+      <td style="font-weight: 700; color: #fff;">${v.name || 'Curated Space'}</td>
+      <td>${v.city || 'Bengaluru'} (${v.area || 'Metro Area'})</td>
+      <td>${v.capacity || 450} pax</td>
+      <td style="font-family: var(--heading-font); color: var(--color-light);">${formatINR(priceVal)}/d</td>
+      <td><span style="color: var(--accent); font-weight: 700;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" class="svg-icon star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${v.rating || 4.9}</span></td>
       <td>
         <span class="status-pill confirmed">Active</span>
       </td>

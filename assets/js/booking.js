@@ -158,7 +158,7 @@ function initVenueFilters() {
       card.className = "venue-card";
       card.innerHTML = `
         <div class="venue-card-media">
-          <img src="${venue.image}" alt="${venue.name}" loading="lazy">
+          <img src="${venue.image || 'assets/images/venue-indiranagar.webp'}" alt="${venue.name}" loading="lazy" onerror="this.onerror=null;this.src='assets/images/venue-indiranagar.webp';">
           <div class="venue-city-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>

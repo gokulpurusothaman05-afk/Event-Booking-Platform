@@ -137,7 +137,8 @@ const STACKLY_INITIAL_DATA = {
       status: "Confirmed",
       clientEmail: "leadership@enterprise.in",
       clientName: "Executive Member",
-      createdAt: "2026-10-10"
+      createdAt: "2026-10-10",
+      image: "assets/images/venue-indiranagar.webp"
     },
     {
       id: "STK-2026-GOA-208",
@@ -152,7 +153,8 @@ const STACKLY_INITIAL_DATA = {
       status: "Confirmed",
       clientEmail: "founders@retreat.in",
       clientName: "Founding Member",
-      createdAt: "2026-10-11"
+      createdAt: "2026-10-11",
+      image: "assets/images/venue-goa.webp"
     },
     {
       id: "STK-2026-MUM-312",
@@ -167,7 +169,8 @@ const STACKLY_INITIAL_DATA = {
       status: "Pending",
       clientEmail: "corp.events@fintech.in",
       clientName: "Corporate Planner",
-      createdAt: "2026-10-12"
+      createdAt: "2026-10-12",
+      image: "assets/images/venue-mumbai.webp"
     },
     {
       id: "STK-2026-UDR-418",
@@ -182,7 +185,8 @@ const STACKLY_INITIAL_DATA = {
       status: "In Review",
       clientEmail: "family@heritage.in",
       clientName: "Host Family",
-      createdAt: "2026-10-13"
+      createdAt: "2026-10-13",
+      image: "assets/images/venue-udaipur.webp"
     }
   ],
   cart: [],
@@ -197,13 +201,103 @@ const STACKLY_INITIAL_DATA = {
 
 // Store Helper
 const StacklyStore = {
+  CITY_IMAGE_FALLBACKS: {
+    "Bengaluru": "assets/images/venue-indiranagar.webp",
+    "Udaipur": "assets/images/venue-udaipur.webp",
+    "Goa": "assets/images/venue-goa.webp",
+    "Mumbai": "assets/images/venue-mumbai.webp",
+    "Delhi-NCR": "assets/images/venue-gurugram.webp",
+    "Delhi": "assets/images/venue-gurugram.webp",
+    "Gurugram": "assets/images/venue-gurugram.webp",
+    "Jaipur": "assets/images/venue-jaipur.webp",
+    "Hyderabad": "assets/images/venue-hyderabad.webp",
+    "Chennai": "assets/images/venue-chennai.webp"
+  },
+
+  sanitizeVenue(v) {
+    if (!v) return null;
+    const defaultImg = this.CITY_IMAGE_FALLBACKS[v.city] || "assets/images/venue-indiranagar.webp";
+    const img = (v.image && typeof v.image === "string" && !v.image.startsWith("http") && v.image.includes("assets/images/"))
+      ? v.image
+      : defaultImg;
+
+    return {
+      ...v,
+      id: v.id || `v-${Math.random().toString(36).substr(2, 6)}`,
+      name: v.name || "Curated Luxury Space",
+      city: v.city || "Bengaluru",
+      area: v.area || "City Center",
+      tag: v.tag || v.category || v.type || "Verified Luxury Space",
+      capacity: Number(v.capacity) || 450,
+      pricePerDay: Number(v.pricePerDay || v.price) || 185000,
+      image: img,
+      type: v.type || "Glasshouse",
+      rating: Number(v.rating) || 4.9,
+      reviewsCount: Number(v.reviewsCount) || 48,
+      features: Array.isArray(v.features) ? v.features : ["Acoustic Treatment", "High-speed Fiber", "Valet Parking"]
+    };
+  },
+
+  sanitizeBooking(b) {
+    if (!b) return null;
+    const defaultImg = this.CITY_IMAGE_FALLBACKS[b.city] || "assets/images/venue-indiranagar.webp";
+    const img = (b.image && typeof b.image === "string" && !b.image.startsWith("http") && b.image.includes("assets/images/"))
+      ? b.image
+      : defaultImg;
+
+    return {
+      ...b,
+      id: b.id || `STK-${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+      eventName: b.eventName || "Corporate Executive Summit",
+      venueName: b.venueName || "Stackly Curated Venue",
+      date: b.date || "2026-11-20",
+      guests: Number(b.guests) || 200,
+      package: b.package || "Enterprise Scale",
+      city: b.city || "Bengaluru",
+      totalPrice: Number(b.totalPrice) || 450000,
+      status: b.status || "Confirmed",
+      clientEmail: b.clientEmail || "guest@enterprise.in",
+      clientName: b.clientName || "Executive Member",
+      createdAt: b.createdAt || "2026-10-10",
+      image: img
+    };
+  },
+
   init() {
-    if (!localStorage.getItem("stackly_venues")) {
-      localStorage.setItem("stackly_venues", JSON.stringify(STACKLY_INITIAL_DATA.venues));
+    const CURRENT_SEED_VERSION = "2.4";
+    const storedVersion = localStorage.getItem("stackly_seed_version");
+
+    // Check if stored venues are missing or contain legacy mock data / broken images
+    let rawVenues = null;
+    try {
+      rawVenues = JSON.parse(localStorage.getItem("stackly_venues"));
+    } catch(e) {
+      rawVenues = null;
     }
-    if (!localStorage.getItem("stackly_bookings")) {
+
+    const hasBrokenVenues = !rawVenues || !Array.isArray(rawVenues) || rawVenues.length === 0 ||
+      rawVenues.some(v => !v.image || !v.tag || !v.pricePerDay || v.name === "Palace Grounds Arena" || v.name === "Jio World Convention Centre" || v.name === "Bharat Mandapam Complex" || (typeof v.image === "string" && v.image.startsWith("http")));
+
+    if (storedVersion !== CURRENT_SEED_VERSION || hasBrokenVenues) {
+      localStorage.setItem("stackly_venues", JSON.stringify(STACKLY_INITIAL_DATA.venues));
+      localStorage.setItem("stackly_seed_version", CURRENT_SEED_VERSION);
+    }
+
+    // Check stored bookings
+    let rawBookings = null;
+    try {
+      rawBookings = JSON.parse(localStorage.getItem("stackly_bookings"));
+    } catch(e) {
+      rawBookings = null;
+    }
+
+    const hasBrokenBookings = !rawBookings || !Array.isArray(rawBookings) || rawBookings.length === 0 ||
+      rawBookings.some(b => !b.image);
+
+    if (storedVersion !== CURRENT_SEED_VERSION || hasBrokenBookings) {
       localStorage.setItem("stackly_bookings", JSON.stringify(STACKLY_INITIAL_DATA.bookings));
     }
+
     if (!localStorage.getItem("stackly_user")) {
       localStorage.setItem("stackly_user", JSON.stringify(STACKLY_INITIAL_DATA.currentUser));
     }
@@ -217,17 +311,35 @@ const StacklyStore = {
   },
 
   getVenues() {
-    return JSON.parse(localStorage.getItem("stackly_venues")) || [];
+    let venues = [];
+    try {
+      venues = JSON.parse(localStorage.getItem("stackly_venues")) || [];
+    } catch(e) {
+      venues = STACKLY_INITIAL_DATA.venues;
+    }
+    if (!Array.isArray(venues) || venues.length === 0) {
+      venues = STACKLY_INITIAL_DATA.venues;
+    }
+    return venues.map(v => this.sanitizeVenue(v)).filter(Boolean);
   },
   saveVenues(venues) {
-    localStorage.setItem("stackly_venues", JSON.stringify(venues));
+    localStorage.setItem("stackly_venues", JSON.stringify(venues.map(v => this.sanitizeVenue(v))));
   },
 
   getBookings() {
-    return JSON.parse(localStorage.getItem("stackly_bookings")) || [];
+    let bookings = [];
+    try {
+      bookings = JSON.parse(localStorage.getItem("stackly_bookings")) || [];
+    } catch(e) {
+      bookings = STACKLY_INITIAL_DATA.bookings;
+    }
+    if (!Array.isArray(bookings) || bookings.length === 0) {
+      bookings = STACKLY_INITIAL_DATA.bookings;
+    }
+    return bookings.map(b => this.sanitizeBooking(b)).filter(Boolean);
   },
   saveBookings(bookings) {
-    localStorage.setItem("stackly_bookings", JSON.stringify(bookings));
+    localStorage.setItem("stackly_bookings", JSON.stringify(bookings.map(b => this.sanitizeBooking(b))));
   },
 
   getCart() {
@@ -492,7 +604,7 @@ function renderCartItems() {
     const card = document.createElement("div");
     card.className = "cart-item-card";
     card.innerHTML = `
-      <img src="${item.image || 'assets/images/venue-indiranagar.webp'}" alt="${item.title}" class="cart-item-thumb">
+      <img src="${item.image || 'assets/images/venue-indiranagar.webp'}" alt="${item.title}" class="cart-item-thumb" onerror="this.onerror=null;this.src='assets/images/venue-indiranagar.webp';">
       <div class="cart-item-info">
         <div class="cart-item-name">${item.title}</div>
         <div class="cart-item-city">${item.city || 'India'} · ${item.type || 'Booking'}</div>
@@ -677,8 +789,8 @@ function setupAuthModal() {
 function setupFormRedirections() {
   const allForms = document.querySelectorAll("form");
   allForms.forEach(form => {
-    if (form.classList.contains("auth-login-form")) {
-      return; // Login form handles authentic login
+    if (form.classList.contains("auth-login-form") || form.id === "new-booking-form" || form.id === "new-venue-form") {
+      return; // Login form and dashboard forms handle authentic functional workflows
     }
 
     form.addEventListener("submit", (e) => {
